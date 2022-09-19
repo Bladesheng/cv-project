@@ -4,6 +4,31 @@ import Experience from "./Experience";
 import CvOutput from "./CvOutput";
 
 class CvInput extends React.Component {
+  constructor(props: any) {
+    super(props);
+
+    this.state = {
+      firstName: "test first name",
+      lastName: "test last name",
+      title: "test title",
+      adress: "test adress",
+      phoneNumber: "test phone",
+      email: "test mail",
+      description: "test description"
+    };
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  handleInputChange(event: any) {
+    const inputElement = event.target as HTMLInputElement;
+    const inputText = inputElement.value;
+
+    this.setState({
+      [inputElement.id]: inputText
+    });
+  }
+
   render() {
     return (
       <div className="main">
@@ -12,31 +37,39 @@ class CvInput extends React.Component {
             <legend>Personal Information</legend>
 
             <label htmlFor="firstName">First name</label>
-            <input type="text" id="firstName"></input>
+            <input onChange={this.handleInputChange} type="text" id="firstName"></input>
 
             <label htmlFor="lastName">Last name</label>
-            <input type="text" id="lastName"></input>
+            <input onChange={this.handleInputChange} type="text" id="lastName"></input>
 
             <label htmlFor="title">Title</label>
-            <input type="text" id="title"></input>
+            <input onChange={this.handleInputChange} type="text" id="title"></input>
 
             <label htmlFor="adress">Adress</label>
-            <input type="text" id="adress"></input>
+            <input onChange={this.handleInputChange} type="text" id="adress"></input>
 
             <label htmlFor="phoneNumber">Phone number</label>
-            <input type="tel" id="phoneNumber"></input>
+            <input onChange={this.handleInputChange} type="tel" id="phoneNumber"></input>
 
             <label htmlFor="email">Email</label>
-            <input type="email" id="email"></input>
+            <input onChange={this.handleInputChange} type="email" id="email"></input>
 
             <label htmlFor="description">Description</label>
-            <textarea id="description"></textarea>
+            <textarea onChange={this.handleInputChange} id="description"></textarea>
           </fieldset>
 
           <fieldset className="education">
             <legend>Education</legend>
 
-            <Education></Education>
+            <Education
+              eduID="0"
+              updateParentState={(state: object) => {
+                // saves Education's state in CvInput's state
+                this.setState({
+                  [`education${0}State`]: state
+                });
+              }}
+            ></Education>
 
             <button>Add</button>
           </fieldset>
@@ -54,7 +87,7 @@ class CvInput extends React.Component {
           <button>Reset Form</button>
         </form>
 
-        <CvOutput></CvOutput>
+        <CvOutput inputState={this.state}></CvOutput>
       </div>
     );
   }
