@@ -1,9 +1,15 @@
 import React from "react";
 import CvOutput from "./CvOutput";
+import Footer from "./Footer";
 
 class App extends React.Component {
   render() {
-    return <CvOutput></CvOutput>;
+    return (
+      <div className="app">
+        <CvOutput></CvOutput>
+        <Footer></Footer>
+      </div>
+    );
   }
 }
 
