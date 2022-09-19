@@ -8,13 +8,14 @@ class CvInput extends React.Component {
     super(props);
 
     this.state = {
-      firstName: "test first name",
-      lastName: "test last name",
-      title: "test title",
-      adress: "test adress",
-      phoneNumber: "test phone",
-      email: "test mail",
-      description: "test description"
+      firstName: "John",
+      lastName: "Doe",
+      title: "Ing.",
+      adress: "Uganda",
+      phoneNumber: "133769420",
+      email: "john@doe.com",
+      description:
+        "Doggo ipsum big ol doggorino clouds big ol pupper wow such tempt, doing me a frighten very jealous."
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -58,6 +59,14 @@ class CvInput extends React.Component {
             <textarea onChange={this.handleInputChange} id="description"></textarea>
           </fieldset>
 
+          <fieldset className="experience">
+            <legend>Experience</legend>
+
+            <Experience></Experience>
+
+            <button>Add</button>
+          </fieldset>
+
           <fieldset className="education">
             <legend>Education</legend>
 
@@ -70,14 +79,6 @@ class CvInput extends React.Component {
                 });
               }}
             ></Education>
-
-            <button>Add</button>
-          </fieldset>
-
-          <fieldset className="experience">
-            <legend>Experience</legend>
-
-            <Experience></Experience>
 
             <button>Add</button>
           </fieldset>
