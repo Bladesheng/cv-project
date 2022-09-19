@@ -10,11 +10,11 @@ class Experience extends React.Component {
         <label htmlFor="company">Company</label>
         <input type="text" id="company"></input>
 
-        <label htmlFor="from">From</label>
-        <input type="text" id="from"></input>
+        <label htmlFor="experinceFrom">From</label>
+        <input type="text" id="experinceFrom"></input>
 
-        <label htmlFor="to">To</label>
-        <input type="text" id="to"></input>
+        <label htmlFor="experinceTo">To</label>
+        <input type="text" id="experinceTo"></input>
 
         <button>Delete</button>
       </fieldset>

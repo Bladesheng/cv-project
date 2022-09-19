@@ -13,11 +13,11 @@ class Education extends React.Component {
         <label htmlFor="degree">Degree</label>
         <input type="text" id="degree"></input>
 
-        <label htmlFor="from">From</label>
-        <input type="text" id="from"></input>
+        <label htmlFor="educationFrom">From</label>
+        <input type="text" id="educationFrom"></input>
 
-        <label htmlFor="to">To</label>
-        <input type="text" id="to"></input>
+        <label htmlFor="educationTo">To</label>
+        <input type="text" id="educationTo"></input>
 
         <button>Delete</button>
       </fieldset>
