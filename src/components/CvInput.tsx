@@ -1,4 +1,6 @@
 import React from "react";
+import Education from "./Education";
+import Experience from "./Experience";
 import CvOutput from "./CvOutput";
 
 class CvInput extends React.Component {
@@ -25,7 +27,7 @@ class CvInput extends React.Component {
             <input type="tel" id="phoneNumber"></input>
 
             <label htmlFor="email">Email</label>
-            <input type="tel" id="email"></input>
+            <input type="email" id="email"></input>
 
             <label htmlFor="description">Description</label>
             <textarea id="description"></textarea>
@@ -34,11 +36,15 @@ class CvInput extends React.Component {
           <fieldset className="education">
             <legend>Education</legend>
 
+            <Education></Education>
+
             <button>Add</button>
           </fieldset>
 
           <fieldset className="experience">
             <legend>Experience</legend>
+
+            <Experience></Experience>
 
             <button>Add</button>
           </fieldset>
