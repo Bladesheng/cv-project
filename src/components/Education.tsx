@@ -78,6 +78,7 @@ class Education extends React.Component<IProps, IStateEducation> {
       return index !== parseInt(eduID); // keep only schools with different index than the one to be removed
     });
 
+    console.log(this.state.schools);
     console.log(filteredSchools);
 
     this.setState(
@@ -96,19 +97,44 @@ class Education extends React.Component<IProps, IStateEducation> {
       return (
         <fieldset key={index} data-eduid={index}>
           <label htmlFor="school">School name</label>
-          <input onChange={this.handleInputChange} type="text" id="school"></input>
+          <input
+            onChange={this.handleInputChange}
+            type="text"
+            id="school"
+            value={school.school}
+          ></input>
 
           <label htmlFor="specialization">Specialization</label>
-          <input onChange={this.handleInputChange} type="text" id="specialization"></input>
+          <input
+            onChange={this.handleInputChange}
+            type="text"
+            id="specialization"
+            value={school.specialization}
+          ></input>
 
           <label htmlFor="degree">Degree</label>
-          <input onChange={this.handleInputChange} type="text" id="degree"></input>
+          <input
+            onChange={this.handleInputChange}
+            type="text"
+            id="degree"
+            value={school.degree}
+          ></input>
 
           <label htmlFor="educationFrom">From</label>
-          <input onChange={this.handleInputChange} type="text" id="educationFrom"></input>
+          <input
+            onChange={this.handleInputChange}
+            type="text"
+            id="educationFrom"
+            value={school.educationFrom}
+          ></input>
 
           <label htmlFor="educationTo">To</label>
-          <input onChange={this.handleInputChange} type="text" id="educationTo"></input>
+          <input
+            onChange={this.handleInputChange}
+            type="text"
+            id="educationTo"
+            value={school.educationTo}
+          ></input>
 
           <button
             onClick={(event) => {
