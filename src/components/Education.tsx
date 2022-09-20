@@ -1,61 +1,147 @@
 import React, { ChangeEvent } from "react";
 
-type EduProps = {
-  eduID: string;
-  updateParentState: (state: object) => void;
+export type ISchool = {
+  school: string;
+  specialization: string;
+  degree: string;
+  educationFrom: string;
+  educationTo: string;
 };
 
-class Education extends React.Component<EduProps> {
-  constructor(props: EduProps) {
+type IProps = {
+  updateInputState: (state: IStateEducation) => void;
+};
+
+export type IStateEducation = {
+  schools: ISchool[];
+};
+
+class Education extends React.Component<IProps, IStateEducation> {
+  constructor(props: IProps) {
     super(props);
 
     this.state = {
-      eduID: this.props.eduID,
-      school: "testxxxx school",
-      specialization: "some specialization",
-      degree: "test degree",
-      educationFrom: "9/11/2001",
-      educationTo: "69/420/13337"
+      schools: []
     };
 
-    this.props.updateParentState(this.state); // initial update of Input's state
+    this.props.updateInputState(this.state); // initial update of Input's state
 
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.addSchool = this.addSchool.bind(this);
+    this.removeSchool = this.removeSchool.bind(this);
   }
 
   handleInputChange(event: ChangeEvent) {
     const inputElement = event.target as HTMLInputElement;
+    const key = inputElement.id as keyof ISchool; // ID's are the same as school's keys
     const inputText = inputElement.value;
+    const schoolElement = inputElement.parentNode as HTMLFieldSetElement;
+    const eduID = schoolElement.dataset.eduid; // is same as index in schools array
+
+    const schoolsCopy = this.state.schools;
+    const school = schoolsCopy[parseInt(eduID)];
+    school[key] = inputText;
 
     this.setState(
       {
-        [inputElement.id]: inputText
+        ...this.state,
+        schools: schoolsCopy
       },
       () => {
-        this.props.updateParentState(this.state); // update Input state after updating Education state
+        this.props.updateInputState(this.state); // update Input state after updating Education state
+      }
+    );
+  }
+
+  addSchool() {
+    const newSchool = {
+      school: "",
+      specialization: "",
+      degree: "",
+      educationFrom: "",
+      educationTo: ""
+    };
+
+    this.setState(
+      {
+        ...this.state,
+        schools: this.state.schools.concat(newSchool)
+      },
+      () => {
+        this.props.updateInputState(this.state);
+      }
+    );
+  }
+
+  removeSchool(eduID: string) {
+    const filteredSchools = this.state.schools.filter((school, index) => {
+      return index !== parseInt(eduID); // keep only schools with different index than the one to be removed
+    });
+
+    console.log(filteredSchools);
+
+    this.setState(
+      {
+        ...this.state,
+        schools: filteredSchools
+      },
+      () => {
+        this.props.updateInputState(this.state);
       }
     );
   }
 
   render() {
+    const educationElements = this.state.schools.map((school, index) => {
+      return (
+        <fieldset key={index} data-eduid={index}>
+          <label htmlFor="school">School name</label>
+          <input onChange={this.handleInputChange} type="text" id="school"></input>
+
+          <label htmlFor="specialization">Specialization</label>
+          <input onChange={this.handleInputChange} type="text" id="specialization"></input>
+
+          <label htmlFor="degree">Degree</label>
+          <input onChange={this.handleInputChange} type="text" id="degree"></input>
+
+          <label htmlFor="educationFrom">From</label>
+          <input onChange={this.handleInputChange} type="text" id="educationFrom"></input>
+
+          <label htmlFor="educationTo">To</label>
+          <input onChange={this.handleInputChange} type="text" id="educationTo"></input>
+
+          <button
+            onClick={(event) => {
+              event.preventDefault();
+              const buttonElement = event.target as HTMLButtonElement;
+              const schoolElement = buttonElement.parentNode as HTMLFieldSetElement;
+              const eduID = schoolElement.dataset.eduid;
+
+              this.removeSchool(eduID);
+            }}
+            className="delete"
+          >
+            Delete
+          </button>
+        </fieldset>
+      );
+    });
+
     return (
-      <fieldset>
-        <label htmlFor="school">School name</label>
-        <input onChange={this.handleInputChange} type="text" id="school"></input>
+      <fieldset className="education">
+        <legend>Education</legend>
 
-        <label htmlFor="specialization">Specialization</label>
-        <input onChange={this.handleInputChange} type="text" id="specialization"></input>
+        {educationElements}
 
-        <label htmlFor="degree">Degree</label>
-        <input onChange={this.handleInputChange} type="text" id="degree"></input>
-
-        <label htmlFor="educationFrom">From</label>
-        <input onChange={this.handleInputChange} type="text" id="educationFrom"></input>
-
-        <label htmlFor="educationTo">To</label>
-        <input onChange={this.handleInputChange} type="text" id="educationTo"></input>
-
-        <button>Delete</button>
+        <button
+          onClick={(event) => {
+            event.preventDefault();
+            this.addSchool();
+          }}
+          className="add"
+        >
+          Add
+        </button>
       </fieldset>
     );
   }

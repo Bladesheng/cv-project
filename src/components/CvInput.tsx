@@ -1,9 +1,23 @@
 import React from "react";
-import Education from "./Education";
+import Education, { IStateEducation, ISchool } from "./Education";
 import Experience from "./Experience";
 import CvOutput from "./CvOutput";
 
-class CvInput extends React.Component {
+type IProps = {};
+
+type IState = {
+  firstName: string;
+  lastName: string;
+  title: string;
+  adress: string;
+  phoneNumber: string;
+  email: string;
+  description: string;
+  experience: [];
+  education: ISchool[];
+};
+
+class CvInput extends React.Component<IProps, IState> {
   constructor(props: any) {
     super(props);
 
@@ -15,7 +29,9 @@ class CvInput extends React.Component {
       phoneNumber: "133769420",
       email: "john@doe.com",
       description:
-        "Doggo ipsum big ol doggorino clouds big ol pupper wow such tempt, doing me a frighten very jealous."
+        "Doggo ipsum big ol doggorino clouds big ol pupper wow such tempt, doing me a frighten.",
+      experience: [],
+      education: []
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -25,8 +41,12 @@ class CvInput extends React.Component {
     const inputElement = event.target as HTMLInputElement;
     const inputText = inputElement.value;
 
+    type stateKey = keyof typeof this.state;
+    const key = inputElement.id as stateKey; // ID's are the same as state's keys
+
     this.setState({
-      [inputElement.id]: inputText
+      ...this.state,
+      [key]: inputText
     });
   }
 
@@ -59,29 +79,17 @@ class CvInput extends React.Component {
             <textarea onChange={this.handleInputChange} id="description"></textarea>
           </fieldset>
 
-          <fieldset className="experience">
-            <legend>Experience</legend>
+          {/* <Experience></Experience> */}
 
-            <Experience></Experience>
-
-            <button>Add</button>
-          </fieldset>
-
-          <fieldset className="education">
-            <legend>Education</legend>
-
-            <Education
-              eduID="0"
-              updateParentState={(state: object) => {
-                // saves Education's state in CvInput's state
-                this.setState({
-                  [`education${0}State`]: state
-                });
-              }}
-            ></Education>
-
-            <button>Add</button>
-          </fieldset>
+          <Education
+            updateInputState={(educationState: IStateEducation) => {
+              // saves Education's state in CvInput's state
+              this.setState({
+                ...this.state,
+                education: educationState.schools
+              });
+            }}
+          ></Education>
 
           <button>Generate PDF</button>
           <button>Load Example</button>
