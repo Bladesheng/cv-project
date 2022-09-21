@@ -24,8 +24,6 @@ class Education extends React.Component<IProps, IStateEducation> {
       schools: []
     };
 
-    this.props.updateInputState(this.state); // initial update of Input's state
-
     this.handleInputChange = this.handleInputChange.bind(this);
     this.addSchool = this.addSchool.bind(this);
     this.removeSchool = this.removeSchool.bind(this);

@@ -5,7 +5,7 @@ import CvOutput from "./CvOutput";
 
 type IProps = {};
 
-type IState = {
+export type IStateInput = {
   firstName: string;
   lastName: string;
   title: string;
@@ -17,7 +17,7 @@ type IState = {
   education: ISchool[];
 };
 
-class CvInput extends React.Component<IProps, IState> {
+class CvInput extends React.Component<IProps, IStateInput> {
   constructor(props: any) {
     super(props);
 

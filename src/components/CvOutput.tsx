@@ -1,7 +1,8 @@
 import React from "react";
+import { IStateInput } from "./CvInput";
 
 type OutputProps = {
-  inputState: any;
+  inputState: IStateInput;
 };
 
 class CvOutput extends React.Component<OutputProps> {
@@ -9,6 +10,19 @@ class CvOutput extends React.Component<OutputProps> {
     console.log(this.props.inputState);
 
     const { inputState } = this.props;
+
+    const schoolsElements = inputState.education.map((school, index) => {
+      return (
+        <div key={index} className="school">
+          <h3 className="date">
+            {school.educationFrom} - {school.educationTo}
+          </h3>
+          <h3 className="schoolName">{school.school}</h3>
+          <p className="degree">{school.degree}</p>
+          <p className="specialization">{school.specialization}</p>
+        </div>
+      );
+    });
 
     return (
       <div className="cvOutput">
@@ -28,6 +42,7 @@ class CvOutput extends React.Component<OutputProps> {
 
           <section className="education">
             <h2>Education</h2>
+            <section className="schoolsList">{schoolsElements}</section>
           </section>
         </section>
 
