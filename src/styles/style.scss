@@ -32,6 +32,8 @@ body,
   width: 100vw;
   max-width: 100vw;
 
+  overflow-x: hidden;
+
   font-family: $font-stack;
   color: $font-color-primary;
   background-color: $color-primary;
@@ -40,6 +42,8 @@ body,
 .app {
   display: flex;
   flex-direction: column;
+
+  padding: 4vw;
 }
 
 button {
@@ -51,10 +55,11 @@ main {
   flex: 1 1 auto;
 
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  $cv-width: 50vw;
+  grid-template-columns: 35vw $cv-width;
+  gap: 4vw;
 
   .cvInput {
-    margin: 3vw;
     padding: 1rem;
 
     display: flex;
@@ -169,7 +174,11 @@ main {
   }
 
   .cvOutput {
-    margin: 3vw;
+    height: calc($cv-width * 1.4142); // same as A4 aspect ratio
+
+    position: sticky;
+    top: 1vw;
+
     display: grid;
     grid-template-columns: 1fr 2.5fr;
     grid-template-rows: auto 1fr;
