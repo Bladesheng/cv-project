@@ -36,6 +36,7 @@ class CvInput extends React.Component<IProps, IStateInput> {
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.loadTemplate = this.loadTemplate.bind(this);
+    this.resetInput = this.resetInput.bind(this);
   }
 
   handleInputChange(event: any) {
@@ -86,6 +87,22 @@ class CvInput extends React.Component<IProps, IStateInput> {
           educationTo: "1995"
         }
       ]
+    });
+  }
+
+  resetInput(event: any) {
+    event.preventDefault();
+
+    this.setState({
+      firstName: "",
+      lastName: "",
+      title: "",
+      adress: "",
+      phoneNumber: "",
+      email: "",
+      description: "",
+      experience: [],
+      education: []
     });
   }
 
@@ -143,7 +160,7 @@ class CvInput extends React.Component<IProps, IStateInput> {
             <button className="example" onClick={this.loadTemplate}>
               Load Example
             </button>
-            <button className="reset" type="reset">
+            <button className="reset" onClick={this.resetInput}>
               Reset Form
             </button>
           </section>
