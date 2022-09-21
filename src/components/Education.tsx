@@ -8,12 +8,12 @@ export type ISchool = {
   educationTo: string;
 };
 
-type IProps = {
-  updateInputState: (state: IStateEducation) => void;
-};
-
 export type IStateEducation = {
   schools: ISchool[];
+};
+
+type IProps = {
+  updateInputState: (state: IStateEducation) => void;
 };
 
 class Education extends React.Component<IProps, IStateEducation> {
@@ -76,9 +76,6 @@ class Education extends React.Component<IProps, IStateEducation> {
       return index !== parseInt(eduID); // keep only schools with different index than the one to be removed
     });
 
-    console.log(this.state.schools);
-    console.log(filteredSchools);
-
     this.setState(
       {
         ...this.state,
@@ -91,36 +88,28 @@ class Education extends React.Component<IProps, IStateEducation> {
   }
 
   render() {
+    const handleInputChange = this.handleInputChange;
+
     const educationElements = this.state.schools.map((school, index) => {
       return (
         <fieldset key={index} data-eduid={index}>
           <label htmlFor="school">School name</label>
-          <input
-            onChange={this.handleInputChange}
-            type="text"
-            id="school"
-            value={school.school}
-          ></input>
+          <input onChange={handleInputChange} type="text" id="school" value={school.school}></input>
 
           <label htmlFor="specialization">Specialization</label>
           <input
-            onChange={this.handleInputChange}
+            onChange={handleInputChange}
             type="text"
             id="specialization"
             value={school.specialization}
           ></input>
 
           <label htmlFor="degree">Degree</label>
-          <input
-            onChange={this.handleInputChange}
-            type="text"
-            id="degree"
-            value={school.degree}
-          ></input>
+          <input onChange={handleInputChange} type="text" id="degree" value={school.degree}></input>
 
           <label htmlFor="educationFrom">From</label>
           <input
-            onChange={this.handleInputChange}
+            onChange={handleInputChange}
             type="text"
             id="educationFrom"
             value={school.educationFrom}
@@ -128,13 +117,14 @@ class Education extends React.Component<IProps, IStateEducation> {
 
           <label htmlFor="educationTo">To</label>
           <input
-            onChange={this.handleInputChange}
+            onChange={handleInputChange}
             type="text"
             id="educationTo"
             value={school.educationTo}
           ></input>
 
           <button
+            className="delete"
             onClick={(event) => {
               event.preventDefault();
               const buttonElement = event.target as HTMLButtonElement;
@@ -143,7 +133,6 @@ class Education extends React.Component<IProps, IStateEducation> {
 
               this.removeSchool(eduID);
             }}
-            className="delete"
           >
             Delete
           </button>
