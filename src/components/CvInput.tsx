@@ -52,7 +52,7 @@ class CvInput extends React.Component<IProps, IStateInput> {
 
   render() {
     return (
-      <div className="main">
+      <main>
         <form className="cvInput">
           <fieldset className="personalInfo">
             <legend>Personal Information</legend>
@@ -105,7 +105,7 @@ class CvInput extends React.Component<IProps, IStateInput> {
         </form>
 
         <CvOutput inputState={this.state}></CvOutput>
-      </div>
+      </main>
     );
   }
 }
