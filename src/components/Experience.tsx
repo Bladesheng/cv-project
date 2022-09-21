@@ -124,7 +124,7 @@ class Experience extends React.Component<IProps, IStateExperience> {
               event.preventDefault();
               const buttonElement = event.target as HTMLButtonElement;
               const jobElement = buttonElement.parentNode as HTMLFieldSetElement;
-              const jobID = jobElement.dataset.eduid;
+              const jobID = jobElement.dataset.jobid;
 
               this.removeJob(jobID);
             }}
