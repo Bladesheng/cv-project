@@ -4,14 +4,18 @@ $font-stack: "Roboto", sans-serif;
 $font-color-primary: rgb(139, 148, 158);
 $font-color-secondary: rgb(240, 246, 252);
 $font-color-blue: rgb(88, 166, 255);
+$font-color-red: rgb(248, 81, 73);
 
 $color-primary: rgb(13, 17, 23);
 $color-secondary: rgb(22, 27, 34);
 $color-grey-dark: rgb(33, 38, 45);
 $color-grey-light: rgb(55, 59, 66);
 $color-blue: rgb(27, 44, 67);
-$color-green: rgb(35, 134, 54);
+$color-green-dark: rgb(35, 134, 54);
+$color-green-light: rgb(56, 145, 75);
 $color-purple: rgb(137, 87, 229);
+$color-black: rgb(1, 4, 9);
+$color-red: rgb(218, 54, 51);
 
 * {
   padding: 0;
@@ -28,7 +32,7 @@ body,
 
   font-family: $font-stack;
   color: $font-color-primary;
-  background-color: $color-secondary;
+  background-color: $color-primary;
 }
 
 .app {
@@ -43,6 +47,129 @@ button {
 
 main {
   flex: 1 1 auto;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  .cvInput {
+    margin: 3vw;
+    padding: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    background-color: $color-secondary;
+
+    border-radius: 10px;
+
+    legend {
+      font-size: 1.5rem;
+      color: $font-color-secondary;
+    }
+
+    label {
+      font-size: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    fieldset {
+      display: flex;
+      flex-direction: column;
+      //gap: 0.5rem;
+
+      border: 0;
+    }
+
+    input,
+    textarea {
+      padding: 0.25em;
+
+      border: 2px solid $color-grey-light;
+      border-radius: 6px;
+
+      font-size: 1rem;
+      color: $font-color-secondary;
+
+      background-color: $color-black;
+
+      resize: none;
+    }
+    input:focus,
+    textarea:focus {
+      background-color: $color-secondary;
+      border: 2px solid $font-color-blue;
+      outline: none;
+    }
+
+    button {
+      padding: 0.2em;
+
+      border-radius: 4px;
+
+      font-weight: 500;
+      font-size: 1rem;
+    }
+
+    .delete {
+      // only for layout
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .add,
+    .pdf {
+      background-color: $color-green-dark;
+
+      border: 2px solid $color-green-light;
+
+      color: $font-color-secondary;
+    }
+    .add:hover,
+    .pdf:hover {
+      filter: brightness(1.15);
+    }
+
+    .delete,
+    .reset {
+      background-color: $color-grey-dark;
+
+      border: 2px solid $color-grey-light;
+
+      color: $font-color-red;
+    }
+    .delete:hover,
+    .reset:hover {
+      background-color: $color-red;
+
+      border: 2px solid $font-color-red;
+
+      color: $font-color-secondary;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1rem;
+
+      .example {
+        background-color: $color-grey-dark;
+
+        border: 2px solid $color-grey-light;
+
+        color: $font-color-secondary;
+      }
+      .example:hover {
+        filter: brightness(1.15);
+      }
+    }
+  }
+
+  .cvOutput {
+    margin: 3vw;
+
+    background-color: $color-secondary;
+  }
 }
 
 footer {

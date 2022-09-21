@@ -99,9 +99,13 @@ class CvInput extends React.Component<IProps, IStateInput> {
             }}
           ></Education>
 
-          <button>Generate PDF</button>
-          <button>Load Example</button>
-          <button>Reset Form</button>
+          <section className="controls">
+            <button className="pdf">Generate PDF</button>
+            <button className="example">Load Example</button>
+            <button className="reset" type="reset">
+              Reset Form
+            </button>
+          </section>
         </form>
 
         <CvOutput inputState={this.state}></CvOutput>
