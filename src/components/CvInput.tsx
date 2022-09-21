@@ -1,7 +1,8 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import Education, { IStateEducation, ISchool } from "./Education";
 import Experience, { IStateExperience, IJob } from "./Experience";
 import CvOutput from "./CvOutput";
+import { type } from "os";
 
 type IProps = {};
 
@@ -22,19 +23,19 @@ class CvInput extends React.Component<IProps, IStateInput> {
     super(props);
 
     this.state = {
-      firstName: "John",
-      lastName: "Doe",
-      title: "Ing.",
-      adress: "Uganda",
-      phoneNumber: "133769420",
-      email: "john@doe.com",
-      description:
-        "Doggo ipsum big ol doggorino clouds big ol pupper wow such tempt, doing me a frighten.",
+      firstName: "",
+      lastName: "",
+      title: "",
+      adress: "",
+      phoneNumber: "",
+      email: "",
+      description: "",
       experience: [],
       education: []
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.loadTemplate = this.loadTemplate.bind(this);
   }
 
   handleInputChange(event: any) {
@@ -47,6 +48,44 @@ class CvInput extends React.Component<IProps, IStateInput> {
     this.setState({
       ...this.state,
       [key]: inputText
+    });
+  }
+
+  loadTemplate(event: any) {
+    event.preventDefault();
+
+    this.setState({
+      firstName: "Michael",
+      lastName: "Scott",
+      title: "",
+      adress: "Scranton, Pennsylvania",
+      phoneNumber: "717-555-0177",
+      email: "michael.scott@dundermifflin.com",
+      description:
+        "First of all no, it's still on tv they didn't take it off. The Office is in second person and the camera points to the characters faces on purpose because in the end they do say that they are talking to the audience. The only way you could've missed this is because you didn't really watch it at all. Second, there is nothing wrong with...",
+      experience: [
+        {
+          position: "Salesman",
+          company: "Dunder Mifflin",
+          experinceFrom: "1992",
+          experinceTo: "2001"
+        },
+        {
+          position: "Regional Manager",
+          company: "Dunder Mifflin",
+          experinceFrom: "2001",
+          experinceTo: "2011"
+        }
+      ],
+      education: [
+        {
+          school: "Cornell University",
+          specialization: "Art",
+          degree: "Bachelor",
+          educationFrom: "1991",
+          educationTo: "1995"
+        }
+      ]
     });
   }
 
@@ -101,7 +140,9 @@ class CvInput extends React.Component<IProps, IStateInput> {
 
           <section className="controls">
             <button className="pdf">Generate PDF</button>
-            <button className="example">Load Example</button>
+            <button className="example" onClick={this.loadTemplate}>
+              Load Example
+            </button>
             <button className="reset" type="reset">
               Reset Form
             </button>
