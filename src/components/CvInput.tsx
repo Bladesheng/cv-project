@@ -1,6 +1,6 @@
 import React from "react";
 import Education, { IStateEducation, ISchool } from "./Education";
-import Experience from "./Experience";
+import Experience, { IStateExperience, IJob } from "./Experience";
 import CvOutput from "./CvOutput";
 
 type IProps = {};
@@ -13,7 +13,7 @@ export type IStateInput = {
   phoneNumber: string;
   email: string;
   description: string;
-  experience: [];
+  experience: IJob[];
   education: ISchool[];
 };
 
@@ -79,7 +79,15 @@ class CvInput extends React.Component<IProps, IStateInput> {
             <textarea onChange={this.handleInputChange} id="description"></textarea>
           </fieldset>
 
-          {/* <Experience></Experience> */}
+          <Experience
+            updateInputState={(experienceState: IStateExperience) => {
+              // saves Experience's state in CvInput's state
+              this.setState({
+                ...this.state,
+                experience: experienceState.jobs
+              });
+            }}
+          ></Experience>
 
           <Education
             updateInputState={(educationState: IStateEducation) => {

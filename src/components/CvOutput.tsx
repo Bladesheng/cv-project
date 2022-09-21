@@ -24,6 +24,18 @@ class CvOutput extends React.Component<OutputProps> {
       );
     });
 
+    const jobsElements = inputState.experience.map((job, index) => {
+      return (
+        <div key={index} className="job">
+          <h3 className="date">
+            {job.experinceFrom} - {job.experinceTo}
+          </h3>
+          <h3 className="compayName">{job.company}</h3>
+          <p className="position">{job.position}</p>
+        </div>
+      );
+    });
+
     return (
       <div className="cvOutput">
         <h1 className="fullName">
@@ -38,6 +50,7 @@ class CvOutput extends React.Component<OutputProps> {
 
           <section className="experience">
             <h2>Experience</h2>
+            <section className="jobsList">{jobsElements}</section>
           </section>
 
           <section className="education">
