@@ -188,7 +188,7 @@ main {
     top: 1vw;
 
     display: grid;
-    grid-template-columns: 1fr 2.5fr;
+    grid-template-columns: 1fr 2fr;
     grid-template-rows: auto 1fr;
 
     background-color: $cv-white;
@@ -201,7 +201,7 @@ main {
 
       padding: 1rem;
 
-      font-size: 2rem;
+      font-size: 1.5rem;
       font-weight: 600;
 
       background-color: $cv-grey-light;
