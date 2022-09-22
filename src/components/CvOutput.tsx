@@ -7,8 +7,6 @@ type OutputProps = {
 
 class CvOutput extends React.Component<OutputProps> {
   render() {
-    console.log(this.props.inputState);
-
     const { inputState } = this.props;
 
     const schoolsElements = inputState.education.map((school, index) => {
