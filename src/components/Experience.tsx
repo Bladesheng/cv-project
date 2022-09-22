@@ -28,6 +28,13 @@ class Experience extends React.Component<IProps, IStateExperience> {
     this.removeJob = this.removeJob.bind(this);
   }
 
+  componentDidUpdate(prevProps: Readonly<IProps>): void {
+    // update only once, don't get stuck in loop
+    if (this.props === prevProps) {
+      this.props.updateInputState(this.state); // update Input state after updating Experience state
+    }
+  }
+
   handleInputChange(event: ChangeEvent) {
     const inputElement = event.target as HTMLInputElement;
     const key = inputElement.id as keyof IJob; // ID's are the same as job's keys
@@ -39,15 +46,10 @@ class Experience extends React.Component<IProps, IStateExperience> {
     const job = jobsCopy[parseInt(jobID)];
     job[key] = inputText;
 
-    this.setState(
-      {
-        ...this.state,
-        jobs: jobsCopy
-      },
-      () => {
-        this.props.updateInputState(this.state); // update Input state after updating Education state
-      }
-    );
+    this.setState({
+      ...this.state,
+      jobs: jobsCopy
+    });
   }
 
   addJob() {
@@ -58,15 +60,10 @@ class Experience extends React.Component<IProps, IStateExperience> {
       experinceTo: ""
     };
 
-    this.setState(
-      {
-        ...this.state,
-        jobs: this.state.jobs.concat(newJob)
-      },
-      () => {
-        this.props.updateInputState(this.state);
-      }
-    );
+    this.setState({
+      ...this.state,
+      jobs: this.state.jobs.concat(newJob)
+    });
   }
 
   removeJob(jobID: string) {
@@ -74,15 +71,10 @@ class Experience extends React.Component<IProps, IStateExperience> {
       return index !== parseInt(jobID); // keep only jobs with different index than the one to be removed
     });
 
-    this.setState(
-      {
-        ...this.state,
-        jobs: filteredJobs
-      },
-      () => {
-        this.props.updateInputState(this.state);
-      }
-    );
+    this.setState({
+      ...this.state,
+      jobs: filteredJobs
+    });
   }
 
   render() {

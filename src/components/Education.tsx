@@ -29,6 +29,13 @@ class Education extends React.Component<IProps, IStateEducation> {
     this.removeSchool = this.removeSchool.bind(this);
   }
 
+  componentDidUpdate(prevProps: Readonly<IProps>): void {
+    // update only once, don't get stuck in loop
+    if (this.props === prevProps) {
+      this.props.updateInputState(this.state); // update Input state after updating Education state
+    }
+  }
+
   handleInputChange(event: ChangeEvent) {
     const inputElement = event.target as HTMLInputElement;
     const key = inputElement.id as keyof ISchool; // ID's are the same as school's keys
@@ -40,15 +47,10 @@ class Education extends React.Component<IProps, IStateEducation> {
     const school = schoolsCopy[parseInt(eduID)];
     school[key] = inputText;
 
-    this.setState(
-      {
-        ...this.state,
-        schools: schoolsCopy
-      },
-      () => {
-        this.props.updateInputState(this.state); // update Input state after updating Education state
-      }
-    );
+    this.setState({
+      ...this.state,
+      schools: schoolsCopy
+    });
   }
 
   addSchool() {
@@ -60,15 +62,10 @@ class Education extends React.Component<IProps, IStateEducation> {
       educationTo: ""
     };
 
-    this.setState(
-      {
-        ...this.state,
-        schools: this.state.schools.concat(newSchool)
-      },
-      () => {
-        this.props.updateInputState(this.state);
-      }
-    );
+    this.setState({
+      ...this.state,
+      schools: this.state.schools.concat(newSchool)
+    });
   }
 
   removeSchool(eduID: string) {
@@ -76,15 +73,10 @@ class Education extends React.Component<IProps, IStateEducation> {
       return index !== parseInt(eduID); // keep only schools with different index than the one to be removed
     });
 
-    this.setState(
-      {
-        ...this.state,
-        schools: filteredSchools
-      },
-      () => {
-        this.props.updateInputState(this.state);
-      }
-    );
+    this.setState({
+      ...this.state,
+      schools: filteredSchools
+    });
   }
 
   render() {
