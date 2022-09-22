@@ -1,8 +1,7 @@
-import React, { ChangeEvent } from "react";
+import React from "react";
 import Education, { IStateEducation, ISchool } from "./Education";
 import Experience, { IStateExperience, IJob } from "./Experience";
 import CvOutput from "./CvOutput";
-import { type } from "os";
 
 type IProps = {};
 
@@ -156,7 +155,15 @@ class CvInput extends React.Component<IProps, IStateInput> {
           ></Education>
 
           <section className="controls">
-            <button className="pdf">Generate PDF</button>
+            <button
+              className="pdf"
+              onClick={(event: any) => {
+                event.preventDefault();
+                window.print();
+              }}
+            >
+              Generate PDF
+            </button>
             <button className="example" onClick={this.loadTemplate}>
               Load Example
             </button>

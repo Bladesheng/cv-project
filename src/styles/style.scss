@@ -19,6 +19,13 @@ $cv-white: rgb(255, 255, 255);
 $cv-grey-light: rgb(56, 61, 71);
 $cv-grey-dark: rgb(38, 41, 49);
 
+body {
+  // 2 hours of debugging right here...
+  // makes background colors actually visible
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important; // firefox
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -284,5 +291,43 @@ footer {
   a {
     text-decoration: none;
     color: $font-color-blue;
+  }
+}
+
+@media print {
+  @page {
+    margin: 0; // remove date, page number, document title and url from print
+  }
+
+  html,
+  body,
+  #root,
+  .app {
+    padding: 0 !important;
+    margin: 0 !important;
+    height: 297mm;
+    width: 210mm;
+  }
+
+  // makes sure only 1 page is printed
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  main {
+    .cvInput {
+      display: none;
+    }
+
+    .cvOutput {
+      height: 297mm;
+      width: 210mm;
+    }
+  }
+
+  footer {
+    display: none;
   }
 }
