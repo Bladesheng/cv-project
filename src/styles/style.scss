@@ -294,6 +294,23 @@ footer {
   }
 }
 
+@media screen and (max-width: 1200px) {
+  .app {
+    align-items: center;
+  }
+
+  main {
+    grid-template-columns: 600px;
+    $cv-width: 600px;
+
+    .cvOutput {
+      height: calc($cv-width * 1.4142); // same as A4 aspect ratio
+
+      position: static;
+    }
+  }
+}
+
 @media print {
   @page {
     margin: 0; // remove date, page number, document title and url from print
