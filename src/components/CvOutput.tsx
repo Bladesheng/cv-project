@@ -1,7 +1,11 @@
 import React from "react";
 import { IStateInput } from "./CvInput";
 
-export default function CvOutput(props: { inputState: IStateInput }) {
+type IProps = {
+  inputState: IStateInput;
+};
+
+export default function CvOutput(props: IProps) {
   const { inputState } = props;
 
   const schoolsElements = inputState.education.map((school, index) => {
