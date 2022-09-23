@@ -1,14 +1,30 @@
-import React from "react";
-import { IStateInput } from "./CvInput";
+import React, { useEffect } from "react";
+import { IPersonalInfo } from "./CvInput";
+import { IJob } from "./Experience";
+import { ISchool } from "./Education";
 
 type IProps = {
-  inputState: IStateInput;
+  personalInfo: IPersonalInfo;
+  jobs: IJob[];
+  schools: ISchool[];
 };
 
 export default function CvOutput(props: IProps) {
-  const { inputState } = props;
+  const { personalInfo, jobs, schools } = props;
 
-  const schoolsElements = inputState.education.map((school, index) => {
+  const jobsElements = jobs.map((job, index) => {
+    return (
+      <div key={index} className="job">
+        <p className="date">
+          {job.experinceFrom} - {job.experinceTo}
+        </p>
+        <h3 className="compayName">{job.company}</h3>
+        <p className="position">{job.position}</p>
+      </div>
+    );
+  });
+
+  const schoolsElements = schools.map((school, index) => {
     return (
       <div key={index} className="school">
         <p className="date">
@@ -21,28 +37,16 @@ export default function CvOutput(props: IProps) {
     );
   });
 
-  const jobsElements = inputState.experience.map((job, index) => {
-    return (
-      <div key={index} className="job">
-        <p className="date">
-          {job.experinceFrom} - {job.experinceTo}
-        </p>
-        <h3 className="compayName">{job.company}</h3>
-        <p className="position">{job.position}</p>
-      </div>
-    );
-  });
-
   return (
     <div className="cvOutput">
       <h1 className="fullName">
-        {`${inputState.title} ${inputState.firstName} ${inputState.lastName}`}
+        {`${personalInfo.title} ${personalInfo.firstName} ${personalInfo.lastName}`}
       </h1>
 
       <section className="skills">
         <section className="description">
           <h2>Description</h2>
-          <p>{inputState.description}</p>
+          <p>{personalInfo.description}</p>
         </section>
 
         <section className="experience">
@@ -60,13 +64,13 @@ export default function CvOutput(props: IProps) {
         <h2>Personal Information</h2>
 
         <h3>Adress</h3>
-        <p>{inputState.adress}</p>
+        <p>{personalInfo.adress}</p>
 
         <h3>Phone Number</h3>
-        <p>{inputState.phoneNumber}</p>
+        <p>{personalInfo.phoneNumber}</p>
 
         <h3>Email</h3>
-        <p>{inputState.email}</p>
+        <p>{personalInfo.email}</p>
       </section>
     </div>
   );

@@ -1,11 +1,9 @@
-import React from "react";
-import Education, { IStateEducation, ISchool } from "./Education";
+import React, { ChangeEvent, useState, MouseEvent, useEffect } from "react";
+import Education, { ISchool } from "./Education";
 import Experience, { IJob } from "./Experience";
 import CvOutput from "./CvOutput";
 
-type IProps = {};
-
-export type IStateInput = {
+export type IPersonalInfo = {
   firstName: string;
   lastName: string;
   title: string;
@@ -13,48 +11,40 @@ export type IStateInput = {
   phoneNumber: string;
   email: string;
   description: string;
-  experience: IJob[];
-  education: ISchool[];
 };
 
-class CvInput extends React.Component<IProps, IStateInput> {
-  constructor(props: any) {
-    super(props);
+export default function CvInput() {
+  const [personalInfo, setPersonalInfo] = useState<IPersonalInfo>({
+    firstName: "",
+    lastName: "",
+    title: "",
+    adress: "",
+    phoneNumber: "",
+    email: "",
+    description: ""
+  });
+  const [jobs, setJobs] = useState<IJob[]>([]);
+  const [schools, setSchools] = useState<ISchool[]>([]);
 
-    this.state = {
-      firstName: "",
-      lastName: "",
-      title: "",
-      adress: "",
-      phoneNumber: "",
-      email: "",
-      description: "",
-      experience: [],
-      education: []
-    };
-
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.loadTemplate = this.loadTemplate.bind(this);
-    this.resetInput = this.resetInput.bind(this);
-  }
-
-  handleInputChange(event: any) {
+  // handling of personal info input only
+  function handleInputChange(event: ChangeEvent) {
     const inputElement = event.target as HTMLInputElement;
     const inputText = inputElement.value;
+    type stateType = keyof typeof personalInfo;
+    const key = inputElement.id as stateType; // ID's are the same as state's keys
 
-    type stateKey = keyof typeof this.state;
-    const key = inputElement.id as stateKey; // ID's are the same as state's keys
+    // const personalInfoCopy: IPersonalInfo = Object.assign(personalInfo);
+    const personalInfoCopy: IPersonalInfo = structuredClone(personalInfo);
 
-    this.setState({
-      ...this.state,
-      [key]: inputText
-    });
+    personalInfoCopy[key] = inputText;
+    console.log("is it the same? ", personalInfo === personalInfoCopy);
+    setPersonalInfo(personalInfoCopy);
   }
 
-  loadTemplate(event: any) {
+  function loadTemplate(event: MouseEvent) {
     event.preventDefault();
 
-    this.setState({
+    setPersonalInfo({
       firstName: "Michael",
       lastName: "Scott",
       title: "",
@@ -62,121 +52,116 @@ class CvInput extends React.Component<IProps, IStateInput> {
       phoneNumber: "717-555-0177",
       email: "michael.scott@dundermifflin.com",
       description:
-        "First of all no, it's still on tv they didn't take it off. The Office is in second person and the camera points to the characters faces on purpose because in the end they do say that they are talking to the audience. The only way you could've missed this is because you didn't really watch it at all. Second, there is nothing wrong with...",
-      experience: [
-        {
-          position: "Salesman",
-          company: "Dunder Mifflin",
-          experinceFrom: "1992",
-          experinceTo: "2001"
-        },
-        {
-          position: "Regional Manager",
-          company: "Dunder Mifflin",
-          experinceFrom: "2001",
-          experinceTo: "2011"
-        }
-      ],
-      education: [
-        {
-          school: "Cornell University",
-          specialization: "Art",
-          degree: "Bachelor",
-          educationFrom: "1991",
-          educationTo: "1995"
-        }
-      ]
+        "First of all no, it's still on tv they didn't take it off. The Office is in second person and the camera points to the characters faces on purpose because in the end they do say that they are talking to the audience. The only way you could've missed this is because you didn't really watch it at all. Second, there is nothing wrong with..."
     });
+
+    setJobs([
+      {
+        position: "Salesman",
+        company: "Dunder Mifflin",
+        experinceFrom: "1992",
+        experinceTo: "2001"
+      },
+      {
+        position: "Regional Manager",
+        company: "Dunder Mifflin",
+        experinceFrom: "2001",
+        experinceTo: "2011"
+      }
+    ]);
+
+    setSchools([
+      {
+        school: "Cornell University",
+        specialization: "Art",
+        degree: "Bachelor",
+        educationFrom: "1991",
+        educationTo: "1995"
+      }
+    ]);
   }
 
-  resetInput(event: any) {
+  function resetInput(event: MouseEvent) {
     event.preventDefault();
 
-    this.setState({
+    setPersonalInfo({
       firstName: "",
       lastName: "",
       title: "",
       adress: "",
       phoneNumber: "",
       email: "",
-      description: "",
-      experience: [],
-      education: []
+      description: ""
     });
+
+    setJobs([]);
+    setSchools([]);
   }
 
-  render() {
-    return (
-      <main>
-        <form className="cvInput">
-          <fieldset className="personalInfo">
-            <legend>Personal Information</legend>
+  return (
+    <main>
+      <form className="cvInput">
+        <fieldset className="personalInfo">
+          <legend>Personal Information</legend>
 
-            <label htmlFor="firstName">First name</label>
-            <input onChange={this.handleInputChange} type="text" id="firstName"></input>
+          <label htmlFor="firstName">First name</label>
+          <input onChange={handleInputChange} type="text" id="firstName"></input>
 
-            <label htmlFor="lastName">Last name</label>
-            <input onChange={this.handleInputChange} type="text" id="lastName"></input>
+          <label htmlFor="lastName">Last name</label>
+          <input onChange={handleInputChange} type="text" id="lastName"></input>
 
-            <label htmlFor="title">Title</label>
-            <input onChange={this.handleInputChange} type="text" id="title"></input>
+          <label htmlFor="title">Title</label>
+          <input onChange={handleInputChange} type="text" id="title"></input>
 
-            <label htmlFor="adress">Adress</label>
-            <input onChange={this.handleInputChange} type="text" id="adress"></input>
+          <label htmlFor="adress">Adress</label>
+          <input onChange={handleInputChange} type="text" id="adress"></input>
 
-            <label htmlFor="phoneNumber">Phone number</label>
-            <input onChange={this.handleInputChange} type="tel" id="phoneNumber"></input>
+          <label htmlFor="phoneNumber">Phone number</label>
+          <input onChange={handleInputChange} type="tel" id="phoneNumber"></input>
 
-            <label htmlFor="email">Email</label>
-            <input onChange={this.handleInputChange} type="email" id="email"></input>
+          <label htmlFor="email">Email</label>
+          <input onChange={handleInputChange} type="email" id="email"></input>
 
-            <label htmlFor="description">Description</label>
-            <textarea onChange={this.handleInputChange} id="description"></textarea>
-          </fieldset>
+          <label htmlFor="description">Description</label>
+          <textarea onChange={handleInputChange} id="description"></textarea>
+        </fieldset>
 
-          <Experience
-            updateInputState={(jobs: IJob[]) => {
-              // saves Experience's state in CvInput's state
-              this.setState({
-                ...this.state,
-                experience: jobs
-              });
+        <Experience
+          updateInputState={(jobs: IJob[]) => {
+            // saves Experience's state in CvInput's state
+            setJobs(jobs);
+          }}
+        ></Experience>
+
+        <Education
+          updateInputState={(schools: ISchool[]) => {
+            // saves Education's state in CvInput's state
+            setSchools(schools);
+          }}
+        ></Education>
+
+        <section className="controls">
+          <button
+            className="pdf"
+            onClick={(event: MouseEvent) => {
+              event.preventDefault();
+              window.print();
             }}
-          ></Experience>
+          >
+            Generate PDF
+          </button>
 
-          <Education
-            updateInputState={(educationState: IStateEducation) => {
-              // saves Education's state in CvInput's state
-              this.setState({
-                ...this.state,
-                education: educationState.schools
-              });
-            }}
-          ></Education>
+          <button className="example" onClick={loadTemplate}>
+            Load Example
+          </button>
 
-          <section className="controls">
-            <button
-              className="pdf"
-              onClick={(event: any) => {
-                event.preventDefault();
-                window.print();
-              }}
-            >
-              Generate PDF
-            </button>
-            <button className="example" onClick={this.loadTemplate}>
-              Load Example
-            </button>
-            <button className="reset" onClick={this.resetInput}>
-              Reset Form
-            </button>
-          </section>
-        </form>
+          <button className="reset" onClick={resetInput}>
+            Reset Form
+          </button>
+        </section>
+      </form>
 
-        <CvOutput inputState={this.state}></CvOutput>
-      </main>
-    );
-  }
+      <CvOutput personalInfo={personalInfo} jobs={jobs} schools={schools}></CvOutput>
+    </main>
+  );
 }
-
-export default CvInput;
