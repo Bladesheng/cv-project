@@ -9,6 +9,7 @@ export type IJob = {
 
 type IProps = {
   updateInputState: (jobs: IJob[]) => void;
+  passResetState: (fnc: () => void) => void;
 };
 
 export default function Experience(props: IProps) {
@@ -50,6 +51,11 @@ export default function Experience(props: IProps) {
 
     setJobs(filteredJobs);
   }
+
+  function resetExperienceState() {
+    setJobs([]);
+  }
+  props.passResetState(resetExperienceState);
 
   const experienceElements = jobs.map((job, index) => {
     return (

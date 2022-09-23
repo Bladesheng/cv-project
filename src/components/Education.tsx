@@ -10,6 +10,7 @@ export type ISchool = {
 
 type IProps = {
   updateInputState: (schools: ISchool[]) => void;
+  passResetState: (fnc: () => void) => void;
 };
 
 export default function Education(props: IProps) {
@@ -52,6 +53,11 @@ export default function Education(props: IProps) {
 
     setSchools(filteredSchools);
   }
+
+  function resetEducationState() {
+    setSchools([]);
+  }
+  props.passResetState(resetEducationState);
 
   const educationElements = schools.map((school, index) => {
     return (

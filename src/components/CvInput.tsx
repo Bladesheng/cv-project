@@ -37,7 +37,6 @@ export default function CvInput() {
     const personalInfoCopy: IPersonalInfo = structuredClone(personalInfo);
 
     personalInfoCopy[key] = inputText;
-    console.log("is it the same? ", personalInfo === personalInfoCopy);
     setPersonalInfo(personalInfoCopy);
   }
 
@@ -98,6 +97,16 @@ export default function CvInput() {
     setSchools([]);
   }
 
+  let passedExperienceReset: () => void;
+  function assignExperienceReset(fnc: () => void) {
+    passedExperienceReset = fnc;
+  }
+
+  let passedEducationReset: () => void;
+  function assignEducationReset(fnc: () => void) {
+    passedEducationReset = fnc;
+  }
+
   return (
     <main>
       <form className="cvInput">
@@ -131,6 +140,7 @@ export default function CvInput() {
             // saves Experience's state in CvInput's state
             setJobs(jobs);
           }}
+          passResetState={assignExperienceReset}
         ></Experience>
 
         <Education
@@ -138,6 +148,7 @@ export default function CvInput() {
             // saves Education's state in CvInput's state
             setSchools(schools);
           }}
+          passResetState={assignEducationReset}
         ></Education>
 
         <section className="controls">
@@ -155,7 +166,19 @@ export default function CvInput() {
             Load Example
           </button>
 
-          <button className="reset" onClick={resetInput}>
+          <button
+            className="reset"
+            onClick={(event) => {
+              event.preventDefault();
+              resetInput(event);
+
+              //@ts-ignore
+              const form = event.target.parentNode.parentNode as HTMLFormElement;
+              form.reset();
+              passedExperienceReset();
+              passedEducationReset();
+            }}
+          >
             Reset Form
           </button>
         </section>
