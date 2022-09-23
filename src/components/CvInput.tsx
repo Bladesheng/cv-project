@@ -1,6 +1,6 @@
 import React from "react";
 import Education, { IStateEducation, ISchool } from "./Education";
-import Experience, { IStateExperience, IJob } from "./Experience";
+import Experience, { IJob } from "./Experience";
 import CvOutput from "./CvOutput";
 
 type IProps = {};
@@ -135,11 +135,11 @@ class CvInput extends React.Component<IProps, IStateInput> {
           </fieldset>
 
           <Experience
-            updateInputState={(experienceState: IStateExperience) => {
+            updateInputState={(jobs: IJob[]) => {
               // saves Experience's state in CvInput's state
               this.setState({
                 ...this.state,
-                experience: experienceState.jobs
+                experience: jobs
               });
             }}
           ></Experience>
